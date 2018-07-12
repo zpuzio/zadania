@@ -7,4 +7,8 @@ def fibonnaci(number):
         else:
             a.append(a[i-1]+a[i-2])
     print a
-f = fibonnaci(9)
+    return a
+
+num = int(raw_input("Podaj cyfre: "))
+f = fibonnaci(num)
+print type(f)
