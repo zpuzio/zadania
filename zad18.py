@@ -20,7 +20,7 @@ if __name__=="__main__":
     countCows = 0
     countBulls = 0
     i = 0
-    while countCows != 3:
+    while countCows != 4:
         user = int(raw_input("Enter 4 digit number: "))
         result = cows_bulls(user,rand)
 
@@ -29,5 +29,5 @@ if __name__=="__main__":
         countBulls = resultValues[1]
         i += 1
         print str(countCows) + " cows  " +str(countBulls) + " bulls"
-        if countCows == 3:
+        if countCows == 4:
             print "Wygrales, zajelo Ci to " + str(i) + " prob!"
