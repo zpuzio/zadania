@@ -1,32 +1,33 @@
 import random
 
-def cows_bulls(x):
+def cows_bulls(userDigit,randDigit):
+    cows = 0
+    bulls = 0
+    randDigit = map(int, str(randDigit)) #zamieniam int na liste
+    userDigit = map(int, str(userDigit))
+    for i in range(len(randDigit)):
+        if randDigit[i] in userDigit and randDigit[i] != userDigit[i]:
+            bulls += 1
+        if randDigit[i] == userDigit[i]:
+            cows += 1
 
-        count = [0,0]
-        z = random.randint(1000,9999)
-        z = map(int, str(z)) #zamieniam int na liste
-        x = map(int, str(x))
-        for i in range(0,len(z)):
-                if z[i] == x[i]:
-                    count[0] += 1
-                else:
-                    count[1] += 1
-        return count
-
-
+    return {'cows': cows, 'bulls': bulls}
 
 if __name__=="__main__":
     print "Welcome to Cows and Bulls Game!"
-
-    #print cows_bulls(y)
-    c = 0
+    rand = random.randint(1000, 9999)
+    resultValues = 0
+    countCows = 0
+    countBulls = 0
     i = 0
-    while c !=2:
-        y = int(raw_input("Enter 4 digit number: "))
-        result = cows_bulls(y)
+    while countCows != 3:
+        user = int(raw_input("Enter 4 digit number: "))
+        result = cows_bulls(user,rand)
 
-        c = result[0]
-        i +=1
-        print str(result[0]) + " cows", str(result[1]) + " bulls"
-        if c == 2:
+        resultValues = result.values()
+        countCows = resultValues[0]
+        countBulls = resultValues[1]
+        i += 1
+        print str(countCows) + " cows  " +str(countBulls) + " bulls"
+        if countCows == 3:
             print "Wygrales, zajelo Ci to " + str(i) + " prob!"
