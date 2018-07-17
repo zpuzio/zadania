@@ -4,11 +4,8 @@ with open('prime.txt', 'r') as f1:
 with open('happy.txt', 'r') as f2:
     t2 = f2.read().splitlines()
 
-c = []
-for i in t1:
-    if i in t2:
-        c.append(i)
-print c
+print sorted(set(t1).intersection(t2))
+
 
 
 
