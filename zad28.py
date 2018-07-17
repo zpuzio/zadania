@@ -3,14 +3,14 @@ def maximum(a,b,c):
         if c < b:
             print "Wartosc maksymlana: " + str(b)
             return b
-        elif c > a:
+        else:
             print "Wartosc maksymlana: " + str(c)
             return c
-    if a > b:
+    else:
         if a > c:
             print "Wartosc maksymlana: " + str(a)
             return a
-        elif c > b:
+        else:
             print "Wartosc maksymlana: " + str(c)
             return c
 if __name__=="__main__":
