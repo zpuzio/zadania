@@ -1,58 +1,49 @@
 from __future__ import print_function
-
+symbol1 = "X"
+symbol2 = "o"
 def horizontal(size):
-    print(" --- " * size)
+    print(" ---  " * size)
 
 def board(game):
     size = len(game)
     horizontal(size)
     for x in range(0, 3):
         for y in range(0, 3):
-            print("| " + str(game[x][y]), end="| ")
+            print("| " + str(game[x][y]), end=" | ")
         print()
-def winner(matrix):
+        horizontal(size)
+def winner(rows):
+    import numpy as np
+    cols = list(zip(*rows))  # kolumny
+    diagonals = [np.diag(rows).tolist(), np.diag(np.rot90(rows)).tolist()]  # przekatna_dlugosc
 
-    vertical0 = [matrix[i][0] for i in range(0,3)]
-    vertical1 = [matrix[i][1] for i in range(0,3)]
-    vertical2 = [matrix[i][2] for i in range(0,3)]
-
-    vertical = [vertical0, vertical1, vertical2]
-    p1 = "X"
-    p2 = "#"
-    if (len(set(matrix[0])) == 1 and matrix[0][0]  == p1) or \
-            (len(set(matrix[1])) == 1 and matrix[1][0] == p1) or \
-            (len(set(matrix[2])) == 1 and matrix[2][0] == p1):
-        print ("Wygrywa gracz 1")
-        exit()
-    elif (len(set(matrix[0])) == 1 and matrix[0][0] == p2) or \
-            (len(set(matrix[1])) == 1 and matrix[1][0] == p2) or \
-            (len(set(matrix[2])) == 1 and matrix[2][0] == p2):
-        print ("Wygrywa gracz 2")
-        exit()
-    elif (len(set(vertical[0])) == 1 and vertical[0][0] == p1 ) or \
-            (len(set(vertical[1])) == 1 and vertical[1][0] == p1) or \
-            (len(set(vertical[2])) == 1 and vertical[2][0] == p1):
-       print ("Wygrywa gracz 1")
-       exit()
-    elif (len(set(vertical[0])) == 1 and vertical[0][0] == p2) or \
-            (len(set(vertical[1])) == 1 and vertical[1][0] == p2) or \
-            (len(set(vertical[2])) == 1 and vertical[2][0] == p2):
-       print ("Wygrywa gracz 2")
-       exit()
-    elif matrix[0][0] == matrix[1][1]== matrix[2][2]:
-        if matrix[0][0] == p1:
-            print ("Wygrywa gracz 1")
-            exit()
-        if matrix[0][0] == p2:
-            print ("Wygrywa gracz 2")
-            exit()
-    elif matrix[0][2] == matrix[1][1] == matrix[2][0]:
-        if matrix[1][1] == p1:
-            print ("Wygrywa gracz 1")
-            exit()
-        if matrix[1][1] == p2:
-            print ("Wygrywa gracz 2")
-            exit()
+    for i in range(len(cols)):
+        rzad_dlugosc = len(set(rows[i]))
+        kolumna_dlugosc = len(set(cols[i]))
+        if rzad_dlugosc == 1:
+            if rows[i][0] == symbol1:
+                print("Wygrywa gracz 1")
+                exit()
+            elif rows[i][0] == symbol2:
+                print ("Wygrywa gracz 2")
+                exit()
+        elif kolumna_dlugosc == 1:
+            if cols[i][0] == symbol1:
+                print("Wygrywa gracz 1")
+                exit()
+            elif cols[i][0] == symbol2:
+                print ("Wygrywa gracz 2")
+                exit()
+        else:
+            for j in range(len(diagonals)):
+                przekatna_dlugosc = len(set(diagonals[j]))
+                if przekatna_dlugosc == 1:
+                    if diagonals[j][0] == symbol1:
+                        print ("Wygrywa gracz 1")
+                        exit()
+                    elif diagonals[j][0] == symbol2:
+                        print ("Wygrywa gracz 2")
+                        exit()
 
 def userInput(userIn):
     userList = userIn.split(",")
@@ -79,39 +70,39 @@ def remis(game):
 
 def coordinates_player1(game):
     remis(game)
-    userIn = raw_input("Graczu 1 jaki jest Twoj ruch, podaj go w formacie wiersz,kolumna np 1,2: ")
+    userIn = raw_input("Graczu 1 jaki jest Twoj ruch, podaj go w formacie wiersz,kolumna_dlugosc np 1,2: ")
     input_user = userInput(userIn)
     x = input_user[0]
     y = input_user[1]
     checkCoordinates = wrong_coordinates(x,y,game)
     while checkCoordinates == False:
-        userIn = raw_input("Graczu 1 jaki jest Twoj ruch, podaj go w formacie wiersz,kolumna np 1,2: ")
+        userIn = raw_input("Graczu 1 jaki jest Twoj ruch, podaj go w formacie wiersz,kolumna_dlugosc np 1,2: ")
         input_user = userInput(userIn)
         x = input_user[0]
         y = input_user[1]
         checkCoordinates = wrong_coordinates(x, y, game)
     if game[x][y] == 0:
-        game[x][y] = "X"
+        game[x][y] = symbol1
         board(game)
         winner(game)
     return game
 
 def coordinates_player2(game):
     remis(game)
-    userIn = raw_input("Graczu 2 jaki jest Twoj ruch, podaj go w formacie wiersz,kolumna np 1,2: ")
+    userIn = raw_input("Graczu 2 jaki jest Twoj ruch, podaj go w formacie wiersz,kolumna_dlugosc np 1,2: ")
     input_user = userInput(userIn)
     x = input_user[0]
     y = input_user[1]
 
     checkCoordinates = wrong_coordinates(x, y, game)
     while checkCoordinates == False:
-        userIn = raw_input("Graczu 2 jaki jest Twoj ruch, podaj go w formacie wiersz,kolumna np 1,2: ")
+        userIn = raw_input("Graczu 2 jaki jest Twoj ruch, podaj go w formacie wiersz,kolumna_dlugosc np 1,2: ")
         input_user = userInput(userIn)
         x = input_user[0]
         y = input_user[1]
         checkCoordinates = wrong_coordinates(x, y, game)
     if game[x][y] == 0:
-        game[x][y] = "#"
+        game[x][y] = symbol2
         board(game)
         winner(game)
     return game
